@@ -1,0 +1,95 @@
+<%@ page import="Tam.CGioHang, Tam.Hang" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>Giỏ hàng</title>
+</head>
+<body>
+    <form method="post" action="DatHang.jsp">
+        Ten Hang: <input type="text" name="txtth"><br>
+        Giá: <input type="text" name="txtgia"><br>
+        Số lượng: <input type="text" name="txtsl"><br>
+        <input type="submit" name="un1" value="Đặt hàng">
+    </form>
+    
+    Gio hàng:
+    <% 
+        String th = request.getParameter("txtth");
+        String gia = request.getParameter("txtgia");
+        String sl = request.getParameter("txtsl");
+        CGioHang g = (CGioHang) session.getAttribute("gh");
+
+        // Nếu giỏ hàng trống thì tạo mới
+        if (g == null) {
+            g = new CGioHang();
+            session.setAttribute("gh", g);
+        }
+
+        // Thêm hàng vào giỏ
+        if (th != null && gia != null && sl != null) {
+            g.Them(th, Integer.parseInt(gia), Integer.parseInt(sl));
+            session.setAttribute("gh", g);
+        }
+
+        // Xóa các mặt hàng đã chọn
+        String[] itemsToDelete = request.getParameterValues("items");
+        if (itemsToDelete != null) {
+            for (String tenHang : itemsToDelete) {
+                for (int i = 0; i < g.ds.size(); i++) {
+                    if (g.ds.get(i).getTenhang().equals(tenHang)) {
+                        g.ds.remove(i);
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Xóa toàn bộ giỏ hàng
+        String action = request.getParameter("action");
+        if ("deleteAll".equals(action)) {
+            g.ds.clear();
+        }
+
+        session.setAttribute("gh", g);
+    %>
+
+    <% if (g.ds.size() > 0) { %>
+        <form method="post" action="DatHang.jsp">
+            <table border="1" width="100%">
+                <tr>
+                    <th>Chọn</th>
+                    <th>Tên hàng</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                    <th>Xóa</th>
+                </tr>
+                <% for (int i = 0; i < g.ds.size(); i++) { %>
+                    <tr>
+                        <td><input type="checkbox" name="items" value="<%= g.ds.get(i).getTenhang() %>"></td>
+                        <td><%= g.ds.get(i).getTenhang() %></td>
+                        <td><%= g.ds.get(i).getGia() %></td>
+                        <td><%= g.ds.get(i).getSoluong() %></td>
+                        <td><%= g.ds.get(i).getThanhtien() %></td>
+                        <td>Xóa mặt hàng</td>
+                    </tr>
+                <% } %>
+            </table>
+            
+            <div align="right">
+                Tổng tiền: <%= g.Tongtien() %>
+            </div>
+
+            <!-- Nút xóa các mặt hàng đã chọn -->
+            <input type="submit" value="Xóa các mặt hàng đã chọn">
+            
+            <!-- Nút xóa tất cả mặt hàng -->
+            <input type="submit" name="action" value="deleteAll" onclick="return confirm('Bạn có chắc muốn xóa toàn bộ giỏ hàng?');">
+        </form>
+    <% } else { %>
+        <p>Giỏ hàng của bạn đang trống.</p>
+    <% } %>
+</body>
+</html>

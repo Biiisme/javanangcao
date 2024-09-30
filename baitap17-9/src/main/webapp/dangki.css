@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+.lbtitle{
+    display: flex;
+    background-color: #1a83d2;
+    width: 100%;
+    height: 42px;
+}
+.lbtitle span{
+    margin-left: 10px;
+    margin-top: 10px;
+    color: #f5fbff;
+}
+.lbtitle img {
+    margin-left: 800px;
+    margin-top: 10px;
+    
+}
+.lblogin{
+    height: 550px;
+    
+}
+.imgfb {
+    width: 300px;
+    height: 40px;
+    margin-left: 20px;
+}
+#dboxregister{
+    background-color: rgb(243, 243, 243);
+    width: 50%;
+    height: 55%;
+    margin: 200px 350px;
+}
+.logfb{
+    display: flex;
+}
+#dboxregister .tipmark {
+    float: right;
+    background-color: #f5fbff;
+    width: 302px;
+    height: 68px;
+    border: 1px dashed #01B5E6;
+    border-radius: 5px;
+    margin-left: 240px ;
+}
+.tipmark li {
+    float: left;
+    line-height: 15px;
+    background: url(../images/icons/bulletlogin4x4.gif) no-repeat scroll 0 9px;
+    margin-left:0;
+    
+    font-size: 14px;
+}
+.margintop5 {
+    display: flex;
+    margin: 10px 0 10px 0;
+}
+.btncenterblue span{
+    background-color: #01B5E6;
+    color: aliceblue;
+    padding: 3px 5px 3px 5px;
+}
+ul, li {
+    list-style-type: none;
+}
+.lbbottom ul {
+    display: flex;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    
+    unicode-bidi: isolate;
+}
+.lbbottom li {
+    display: inline;
+    
+    height: 50px;
+    padding: 0 8px;
+    border-right: 1px solid #BBD0D7;
+}

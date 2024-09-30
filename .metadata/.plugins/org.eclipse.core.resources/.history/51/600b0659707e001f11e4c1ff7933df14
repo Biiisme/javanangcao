@@ -1,0 +1,17 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form method='post' action ='DatHang.jsp'>
+	 Ten hang <input type='text' name='txtth'><br>
+	 Gia <input type='text' name='txtgia'><br>
+	 So luong <input type='text' name='txtsl'><br>
+	 <input type='submit' name='un1' value='Dat Hang'>
+	</form>
+</body>
+</html>
